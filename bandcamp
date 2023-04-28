@@ -1,0 +1,20 @@
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
+import sys
+from bandcamp_scraper import get_release_id
+
+
+if len(sys.argv) < 2:
+    print("Usage: bandcamp --url [your bandcamp url]")
+    sys.exit()
+
+url = None
+for i in range(len(sys.argv)):
+    if sys.argv[i] == "--url":
+        url = sys.argv[i+1]
+        break
+
+if url is None:
+    print("Error: URL not provided")
+    sys.exit()
+
+print(get_release_id(url))
