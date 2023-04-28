@@ -22,7 +22,8 @@ bandcamp --url https://logicmoon.bandcamp.com/album/sun
 ## Installation
 
 1. Clone the repository or download the script.
-2. Install the required modules by running the following command:
+2. Set your Python binary in ``./bandcamp`` in the first line
+3. Install the required modules by running the following command:
 
 ```
 pip install -r requirements.txt
