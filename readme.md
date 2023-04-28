@@ -1,5 +1,3 @@
-Here's a sample `README.md` file for this script:
-
 # Bandcamp Release ID Extractor
 
 A command-line tool to extract the release ID from a Bandcamp album URL.
