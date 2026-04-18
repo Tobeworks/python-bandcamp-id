@@ -1,20 +1,32 @@
 #!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
 import sys
-from bandcamp_scraper import get_release_id
+from bandcamp_scraper import process, InvalidURLException
 
+def print_help():
+    print("Usage: bandcamp <url> [--no-image]")
+    print()
+    print("Arguments:")
+    print("  url        Bandcamp album or track URL")
+    print("             (must contain 'bandcamp.com' and '/album/' or '/track/')")
+    print()
+    print("Options:")
+    print("  --no-image  Skip downloading the cover image")
+    print()
+    print("Examples:")
+    print("  bandcamp https://artist.bandcamp.com/album/my-album")
+    print("  bandcamp https://artist.bandcamp.com/track/my-track --no-image")
 
-if len(sys.argv) < 2:
-    print("Usage: bandcamp --url [your bandcamp url]")
-    sys.exit()
+if len(sys.argv) < 2 or sys.argv[1] in ('-h', '--help'):
+    print_help()
+    sys.exit(0 if sys.argv[1:] else 1)
 
-url = None
-for i in range(len(sys.argv)):
-    if sys.argv[i] == "--url":
-        url = sys.argv[i+1]
-        break
-
-if url is None:
-    print("Error: URL not provided")
-    sys.exit()
-
-print(get_release_id(url))
+try:
+    process(sys.argv[1], download_image='--no-image' not in sys.argv)
+except InvalidURLException as e:
+    print(f"Error: {e}")
+    print()
+    print_help()
+    sys.exit(1)
+except Exception as e:
+    print(f"Error: {e}")
+    sys.exit(1)
